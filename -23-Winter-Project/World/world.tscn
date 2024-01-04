@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfnfjn0aamhq6"]
+
+[ext_resource type="PackedScene" uid="uid://bjc7efum0yp5w" path="res://Character/Player/Rogue/rogue.tscn" id="1_r1wxm"]
+[ext_resource type="PackedScene" uid="uid://82u8n53qcrjg" path="res://Character/Enemy/skeleton.tscn" id="2_jrqiv"]
+
+[node name="World" type="Node"]
+
+[node name="Rogue" parent="." instance=ExtResource("1_r1wxm")]
+position = Vector2(376, 208)
+collision_layer = 1
+collision_mask = 1
+
+[node name="Skeleton" parent="." instance=ExtResource("2_jrqiv")]
+position = Vector2(496, 408)
+
+[node name="Skeleton2" parent="." instance=ExtResource("2_jrqiv")]
+position = Vector2(176, 168)
+
+[node name="Skeleton3" parent="." instance=ExtResource("2_jrqiv")]
+position = Vector2(624, 96)

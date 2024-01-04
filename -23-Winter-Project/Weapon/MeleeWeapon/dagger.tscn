@@ -1,0 +1,101 @@
+[gd_scene load_steps=8 format=3 uid="uid://ows6w308kqf3"]
+
+[ext_resource type="PackedScene" uid="uid://b5fcuhf10uys6" path="res://Weapon/MeleeWeapon/melee_weapon.tscn" id="1_15ijm"]
+[ext_resource type="Script" path="res://Weapon/MeleeWeapon/dagger.gd" id="2_gq8on"]
+[ext_resource type="Texture2D" uid="uid://dgkye0n3iqk1u" path="res://Weapon/Wood/Wood.png" id="3_bl6oc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5ou4"]
+size = Vector2(48, 18)
+
+[sub_resource type="Animation" id="Animation_dfx4n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(48, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(48, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c0x1m"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(24, 0), Vector2(72, 0), Vector2(48, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(24, 0), Vector2(72, 0), Vector2(48, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_737nj"]
+_data = {
+"RESET": SubResource("Animation_dfx4n"),
+"attack": SubResource("Animation_c0x1m")
+}
+
+[node name="Dagger" instance=ExtResource("1_15ijm")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("2_gq8on")
+
+[node name="Sprite2D" parent="Marker2D" index="0"]
+texture_filter = 1
+position = Vector2(48, 0)
+rotation = 1.5732
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_bl6oc")
+region_enabled = true
+region_rect = Rect2(34, 16, 12, 29)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(48, 0)
+shape = SubResource("RectangleShape2D_e5ou4")
+metadata/_edit_group_ = true
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_737nj")
+}
+
+[node name="AttackSpeed" parent="." index="3"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="AttackSpeed" to="." method="_on_attack_speed_timeout"]

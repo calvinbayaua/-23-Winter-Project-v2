@@ -1,0 +1,120 @@
+[gd_scene load_steps=18 format=3 uid="uid://bjc7efum0yp5w"]
+
+[ext_resource type="PackedScene" uid="uid://q71jnp37y7xs" path="res://Character/Player/player.tscn" id="1_jkobc"]
+[ext_resource type="Script" path="res://Character/Player/Rogue/Rogue.gd" id="2_pbevb"]
+[ext_resource type="Texture2D" uid="uid://bbr8wdj762tnm" path="res://Character/Player/Rogue/Sprites/Idle/Idle-Sheet.png" id="3_axpwj"]
+[ext_resource type="Texture2D" uid="uid://digd3w7sqqjo8" path="res://Character/Player/Rogue/Sprites/Run/Run-Sheet.png" id="4_prdjf"]
+[ext_resource type="PackedScene" uid="uid://ows6w308kqf3" path="res://Weapon/MeleeWeapon/dagger.tscn" id="5_xhuco"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1g34p"]
+atlas = ExtResource("3_axpwj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxysr"]
+atlas = ExtResource("3_axpwj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13q6y"]
+atlas = ExtResource("3_axpwj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e1jv"]
+atlas = ExtResource("3_axpwj")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xoe2b"]
+atlas = ExtResource("4_prdjf")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdcrd"]
+atlas = ExtResource("4_prdjf")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65hhe"]
+atlas = ExtResource("4_prdjf")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vow4s"]
+atlas = ExtResource("4_prdjf")
+region = Rect2(192, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yixrn"]
+atlas = ExtResource("4_prdjf")
+region = Rect2(256, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_731q6"]
+atlas = ExtResource("4_prdjf")
+region = Rect2(320, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jbgk3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1g34p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxysr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13q6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e1jv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xoe2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdcrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65hhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vow4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yixrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_731q6")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a8wur"]
+radius = 9.0
+
+[node name="Rogue" instance=ExtResource("1_jkobc")]
+texture_filter = 0
+material = null
+script = ExtResource("2_pbevb")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_jbgk3")
+animation = &"run"
+frame_progress = 0.708563
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 11)
+shape = SubResource("CircleShape2D_a8wur")
+
+[node name="Dodge" type="Timer" parent="." index="2"]
+wait_time = 5.0
+
+[node name="Dagger" parent="." index="3" instance=ExtResource("5_xhuco")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+
+[connection signal="timeout" from="Dodge" to="." method="_on_dodge_timeout"]

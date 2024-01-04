@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctyefitk0wux"]
+
+[ext_resource type="Script" path="res://Character/Character.gd" id="1_8tqhd"]
+[ext_resource type="Shader" path="res://Character/character.gdshader" id="1_xvvti"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbn5r"]
+shader = ExtResource("1_xvvti")
+shader_parameter/color = null
+shader_parameter/flashState = 0.5
+
+[node name="Character" type="CharacterBody2D"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_lbn5r")
+script = ExtResource("1_8tqhd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

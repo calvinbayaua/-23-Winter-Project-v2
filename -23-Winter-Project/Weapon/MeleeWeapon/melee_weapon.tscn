@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5fcuhf10uys6"]
+
+[ext_resource type="PackedScene" uid="uid://c071pg64rjdw2" path="res://Weapon/weapon.tscn" id="1_evseh"]
+[ext_resource type="Script" path="res://Weapon/MeleeWeapon/melee_weapon.gd" id="2_bvfhk"]
+
+[node name="MeleeWeapon" instance=ExtResource("1_evseh")]
+script = ExtResource("2_bvfhk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+
+[node name="AttackSpeed" type="Timer" parent="." index="2"]
